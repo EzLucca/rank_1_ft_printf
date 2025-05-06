@@ -22,5 +22,8 @@ int ft_printf(const char *format, ...);
 size_t	ft_putchar_fd(char c, int fd);
 size_t	ft_putnbr_fd(int n, int fd);
 size_t	ft_putstr_fd(char *s, int fd);
+size_t	ft_putunbr_fd(unsigned int n, int fd);
+size_t	ft_puthex_fd(unsigned int n, int fd, short int is_uppercase);
+size_t	ft_putptr_fd(unsigned long long n, int fd);
 
 #endif // !__FT_PRINTF_H__

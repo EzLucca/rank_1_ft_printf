@@ -12,33 +12,25 @@
 
 #include "ft_printf.h"
 
-static	int specifier_format(char specifier, va_list arg_ptr, size_t len)
+static	int specifier_format(char specifier, va_list *arg_ptr, size_t len)
 {
 	int	count;
 
 	count = 0;
 	if (specifier == 'c')
-		count += ft_putchar_fd(va_arg(arg_ptr, int), 1);
+		count += ft_putchar_fd(va_arg(*arg_ptr, int), 1);
 	else if (specifier == 's')
-		count += ft_putstr_fd(va_arg(arg_ptr, int), 1);
+		count += ft_putstr_fd(va_arg(*arg_ptr, int), 1);
 	else if (specifier == 'p')
-		// TODO: function for void * argument has to be printed in hexadecimal format
-		count += ft_putchar_fd(va_arg(arg_ptr, int), 1);
-	else if (specifier == 'd')
-		// TODO: Function to print decimal base number
-		count += ft_putnbr_fd(va_arg(arg_ptr, int), 1);
-	else if (specifier == 'i')
-		// TODO: Function to print integer base number
-		count += ft_putnbr_fd(va_arg(arg_ptr, int), 1);
+		count += ft_putptr_fd(va_arg(*arg_ptr, int), 1);
+	else if (specifier == 'd' || specifier == 'i')
+		count += ft_putnbr_fd(va_arg(*arg_ptr, int), 1);
 	else if (specifier == 'u')
-		// TODO: Function to print unsigned decimal base number
-		count += ft_putnbr_fd(va_arg(arg_ptr, int), 1);
+		count += ft_putunbr_fd(va_arg(*arg_ptr, int), 1);
 	else if (specifier == 'x' || specifier == 'X')
-		// TODO: Function to print number in hexadecimal lowercase format
-		count += ft_puthex_fd(va_arg(arg_ptr, int), 1);
-	else if (specifier == '%')
-		// TODO: Function to print a percent sign
-		count += ft_putchar_fd(va_arg(arg_ptr, int), 1);
+		count += ft_puthex_fd(va_arg(*arg_ptr, long long int), 1, specifier == 'X');
+	else if (specifier == '%' || specifier == '\0')
+		count += ft_putchar_fd(va_arg(*arg_ptr, int), 1);
 	else
 		return (-1);
 	return (count);
