@@ -10,27 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// -TODO: Revisar
 #include "ft_printf.h"
 
-char format_specifier(const char *format, va_list *arg_ptr)
+int	format_specifier(const char *format, va_list *arg_ptr)
 {
 	int count;
 
 	count = 0;
 	if (*format == 'c')
-		count += ft_putchar_fd(va_arg(*arg_ptr, int), 1);
+		count += ft_print_char(va_arg(*arg_ptr, int));
 	else if (*format == 's')
-		count += ft_putstr_fd(va_arg(*arg_ptr, char*), 1);
+		count += ft_print_str(va_arg(*arg_ptr, char*));
 	else if (*format == 'p')
-		count += ft_putptr_fd(va_arg(*arg_ptr, int), 1);
+		count += ft_print_ptr(va_arg(*arg_ptr, int));
 	else if (*format == 'd' || *format == 'i')
-		count += ft_putnbr_fd(va_arg(*arg_ptr, int), 1);
+		count += ft_print_snbr(va_arg(*arg_ptr, int));
 	else if (*format == 'u')
-		count += ft_putunbr_fd(va_arg(*arg_ptr, unsigned int), 1);
+		count += ft_print_unbr(va_arg(*arg_ptr, unsigned int));
 	else if (*format == 'x' || *format == 'X')
-		count += ft_puthex_fd(va_arg(*arg_ptr, long long int), 1, *format == 'X');
-	else if (*format == '%' || *format == '\0')
-		count += ft_putchar_fd('%', 1);
+		count += ft_print_hex(va_arg(*arg_ptr, long long int), *format == 'X');
+	else if (*format == '%')
+		count += ft_print_char('%');
 	if (*format == '\0')
 		return (-1);
 	return (count);
@@ -75,8 +76,7 @@ int ft_printf(const char *format, ...)
 	{
 		if (*format == '%' && format_validation(format + 1) != 0 && format++)
 		{
-			format_specifier(format, &arg_ptr);
-			continue ;
+			len += format_specifier(format, &arg_ptr);
 		}
 		else
 			len += write(1, format, 1);

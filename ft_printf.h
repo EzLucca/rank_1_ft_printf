@@ -18,7 +18,7 @@
 # include <stdarg.h>
 
 # define SPECIFIERS "cspdiuxX%"
-
+// -TODO:Revisar comentarios
 int ft_printf(const char *format, ...);
 
 /*
@@ -26,11 +26,10 @@ int ft_printf(const char *format, ...);
  * descriptor `fd`.
  *
  * @param c: The character to output.
- * @param fd: The file descriptor to which the character is written.
  *
  * @return: `size_t` Number of characters written.
 */
-size_t	ft_putchar_fd(char c, int fd);
+int	ft_print_char(char c);
 
 /*
  * @brief: This function writes the int `n` to the given file descriptor `fd`
@@ -40,7 +39,7 @@ size_t	ft_putchar_fd(char c, int fd);
  *
  * @return: `size_t` number of characters written.
 */
-size_t	ft_putnbr_fd(int n, int fd);
+int	ft_print_snbr(int n);
 
 /*
  * @brief: Outputs a string to the file descriptor.
@@ -50,7 +49,7 @@ size_t	ft_putnbr_fd(int n, int fd);
  *
  * @return: `size_t` Number of characters that are written.
 */
-size_t	ft_putstr_fd(char *s, int fd);
+int	ft_print_str(char *s);
 
 /*
  * @brief: Outputs the number of unsigned integer to the file descriptor.
@@ -60,7 +59,7 @@ size_t	ft_putstr_fd(char *s, int fd);
  *
  * @return: `size_t` Number of characters written.
 */
-size_t	ft_putunbr_fd(unsigned int n, int fd);
+int	ft_print_unbr(unsigned int n);
 
 
 /*
@@ -72,7 +71,7 @@ size_t	ft_putunbr_fd(unsigned int n, int fd);
  *
  * @return: `size_t` Number of characters written.
 */
-size_t	ft_puthex_fd(unsigned int n, int fd, short int is_uppercase);
+int	ft_print_hex(unsigned int n, short int is_uppercase);
 
 
 /*
@@ -87,6 +86,6 @@ size_t	ft_puthex_fd(unsigned int n, int fd, short int is_uppercase);
  *
  * @return: `size_t` Number of characters written.
 */
-size_t	ft_putptr_fd(unsigned long long n, int fd);
+int	ft_print_ptr(unsigned long long n);
 
 #endif

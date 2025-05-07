@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr_fd.c                                    :+:      :+:    :+:   */
+/*   ft_puthex_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 11:25:08 by edlucca           #+#    #+#             */
-/*   Updated: 2025/05/07 15:34:38 by edlucca          ###   ########.fr       */
+/*   Created: 2025/05/07 11:25:21 by edlucca           #+#    #+#             */
+/*   Updated: 2025/05/07 11:25:23 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-size_t	ft_putunbr_fd(unsigned int n, int fd)
+// -TODO: Revisar
+int	ft_print_hex(unsigned int n, short int check_upper)
 {
-	char	value;
+	char	*base;
 	size_t	len;
 
-	value = 0;
+	if (check_upper)
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
 	len = 0;
-	if (n > 9)
-		len += ft_putnbr_fd(n / 10, fd);
-	value += n % 10;
-	len += write(fd, &value, 1);
+	if(n > 15)
+		len += ft_print_hex(n / 16, check_upper);
+	len += write(1, &base[n % 16], 1);
 	return (len);
 }
