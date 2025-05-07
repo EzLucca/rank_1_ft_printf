@@ -12,8 +12,16 @@
 
 #include "ft_printf.h"
 
-// Outputs the string ’s’ to the specified file descriptor.
-// return ; just exit the function
+// Helper function to count len of string
+static size_t	ft_strlen(const char *s)
+{
+	int	p;
+
+	p = 0;
+	while (*s++)
+		++p;
+	return (p);
+}
 
 size_t	ft_putstr_fd(char *s, int fd)
 {

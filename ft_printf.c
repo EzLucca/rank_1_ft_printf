@@ -6,40 +6,66 @@
 /*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:41:36 by edlucca           #+#    #+#             */
-/*   Updated: 2025/05/06 14:16:09 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/05/07 17:14:15 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	int specifier_format(char specifier, va_list *arg_ptr, size_t len)
+char format_specifier(const char *format, va_list *arg_ptr)
 {
-	int	count;
+	int count;
 
 	count = 0;
-	if (specifier == 'c')
+	if (*format == 'c')
 		count += ft_putchar_fd(va_arg(*arg_ptr, int), 1);
-	else if (specifier == 's')
-		count += ft_putstr_fd(va_arg(*arg_ptr, int), 1);
-	else if (specifier == 'p')
+	else if (*format == 's')
+		count += ft_putstr_fd(va_arg(*arg_ptr, char*), 1);
+	else if (*format == 'p')
 		count += ft_putptr_fd(va_arg(*arg_ptr, int), 1);
-	else if (specifier == 'd' || specifier == 'i')
+	else if (*format == 'd' || *format == 'i')
 		count += ft_putnbr_fd(va_arg(*arg_ptr, int), 1);
-	else if (specifier == 'u')
-		count += ft_putunbr_fd(va_arg(*arg_ptr, int), 1);
-	else if (specifier == 'x' || specifier == 'X')
-		count += ft_puthex_fd(va_arg(*arg_ptr, long long int), 1, specifier == 'X');
-	else if (specifier == '%' || specifier == '\0')
-		count += ft_putchar_fd(va_arg(*arg_ptr, int), 1);
-	else
+	else if (*format == 'u')
+		count += ft_putunbr_fd(va_arg(*arg_ptr, unsigned int), 1);
+	else if (*format == 'x' || *format == 'X')
+		count += ft_puthex_fd(va_arg(*arg_ptr, long long int), 1, *format == 'X');
+	else if (*format == '%' || *format == '\0')
+		count += ft_putchar_fd('%', 1);
+	if (*format == '\0')
 		return (-1);
 	return (count);
+}
+
+// Helper function to validation 
+static char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	c = (unsigned char) c;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return ((char *) &s[i]);
+		i++;
+	}
+	if (s[i] == c)
+		return ((char *) &s[i]);
+	return (NULL);
+}
+
+// Check if the format is valid
+static short	int format_validation(const char *format)
+{
+	if (ft_strchr(SPECIFIERS, *format) != 0)
+		return (1);
+	return (0);
 }
 
 int ft_printf(const char *format, ...)
 {
 	va_list arg_ptr;
-	size_t	len;
+	int	len;
 
 	va_start(arg_ptr, format);
 	if (!format)
@@ -47,15 +73,13 @@ int ft_printf(const char *format, ...)
 	len = 0;
 	while (*format)
 	{
-		if (*format == '%' && format_is_valid (format + 1) != 0) // TODO: format_is_valid
+		if (*format == '%' && format_validation(format + 1) != 0 && format++)
 		{
-			format++;
-			len += specifier_format(*format, arg_ptr, &len);
+			format_specifier(format, &arg_ptr);
+			continue ;
 		}
 		else
-		len += write(1, format, 1);
-		if (len == -1)
-			break ;
+			len += write(1, format, 1);
 		format++;
 	}
 	va_end(arg_ptr);

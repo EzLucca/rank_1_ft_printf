@@ -6,13 +6,11 @@
 /*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:42:36 by edlucca           #+#    #+#             */
-/*   Updated: 2025/04/25 14:42:41 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/05/07 17:24:04 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-// Outputs the integer ’n’ to the specified file descriptor.
 
 size_t	ft_putnbr_fd(int n, int fd)
 {
@@ -30,7 +28,7 @@ size_t	ft_putnbr_fd(int n, int fd)
 		}
 		if (n > 9)
 			ft_putnbr_fd(n / 10, fd);
-		value = n % 10;
+		value = n % 10 + '0';
 		return (write(fd, &value, 1));
 	}
 }
