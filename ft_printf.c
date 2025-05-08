@@ -37,26 +37,8 @@ int	format_specifier(const char *format, va_list *arg_ptr)
 	return (count);
 }
 
-// Helper function to validation 
-static char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	c = (unsigned char) c;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return ((char *) &s[i]);
-		i++;
-	}
-	if (s[i] == c)
-		return ((char *) &s[i]);
-	return (NULL);
-}
-
 // Check if the format is valid
-static short	int format_validation(const char *format)
+static int format_validation(const char *format)
 {
 	if (ft_strchr(SPECIFIERS, *format) != 0)
 		return (1);
@@ -77,7 +59,6 @@ int ft_printf(const char *format, ...)
 		if (*format == '%' && format_validation(format + 1) != 0 && format++)
 		{
 			len += format_specifier(format, &arg_ptr);
-			// -TODO: Check
 			if(len == -1)
 				return (-1);
 		}

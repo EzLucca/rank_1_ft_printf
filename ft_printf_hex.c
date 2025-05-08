@@ -11,11 +11,10 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <inttypes.h>
 
 // -TODO: Revisar
 
-int ft_print_base(unsigned long nbr, unsigned long base, char *str)
+static int ft_print_base(unsigned long nbr, unsigned int base, char *str)
 {
 	int index;
 	int len;
@@ -41,8 +40,8 @@ int ft_print_base(unsigned long nbr, unsigned long base, char *str)
 int	ft_print_hex(unsigned long hex, int check_upper)
 {
 	if(check_upper)
-		return (ft_print_base(hex, 16, "0123456789ABCDEF"));
-	return (ft_print_base(hex, 16, "0123456789abcdef"));
+		return (ft_print_base(hex, 16, HEXUP));
+	return (ft_print_base(hex, 16, HEXDN));
 }
 
 int	ft_print_ptr(void *unbr)
@@ -60,11 +59,27 @@ int	ft_print_ptr(void *unbr)
 
 int	ft_print_unbr(unsigned int unbr)
 {
-	 return (ft_print_base(unbr, 10, "0123456789"));
+	 return (ft_print_base(unbr, 10, DECIMAL));
 }
 
-// -TODO: Can I putnbr here?
-// int	ft_print_snbr(long int snbr)
-// {
-// 	 return (ft_print_base(snbr, 10, "0123456789"));
-// }
+int ft_print_snbr(long nbr)
+{
+	int count = 0;
+	int res;
+
+	if (nbr == -2147483648)
+		return (ft_print_str("-2147483648"));
+	if (nbr < 0)
+	{
+		res = write(1, "-", 1);
+		if (res == -1)
+			return (-1);
+		count += res;
+		nbr = -nbr;
+	}
+	res = ft_print_base((unsigned long)nbr, 10, DECIMAL);
+	if (res == -1)
+		return (-1);
+	count += res;
+	return (count);
+}

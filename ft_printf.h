@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __FT_PRINTF_H__
-# define __FT_PRINTF_H__
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdint.h>
 
 # define SPECIFIERS "cspdiuxX%"
+# define HEXUP "0123456789ABCDEF"
+# define HEXDN "0123456789abcdef"
+# define DECIMAL "0123456789"
 // -TODO:Revisar comentarios
 int ft_printf(const char *format, ...);
 
@@ -38,7 +41,8 @@ int	ft_print_char(char c);
  *
  * @return: `int` number of characters (bytes) written.
 */
-int	ft_print_snbr(int n);
+// int	ft_print_snbr(int n);
+int ft_print_snbr(long nbr);
 
 /*
  * @brief: Outputs a string of signed chars.
@@ -85,4 +89,5 @@ int	ft_print_hex(unsigned long hex, int check_upper);
 */
 int	ft_print_ptr(void *unbr);
 
+char	*ft_strchr(const char *s, int c);
 #endif
