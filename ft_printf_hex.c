@@ -11,19 +11,60 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-// -TODO: Revisar
-int	ft_print_hex(unsigned int n, short int check_upper)
-{
-	char	*base;
-	size_t	len;
+#include <inttypes.h>
 
-	if (check_upper)
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
+// -TODO: Revisar
+
+int ft_print_base(unsigned long nbr, unsigned long base, char *str)
+{
+	int index;
+	int len;
+	int total;
+
 	len = 0;
-	if(n > 15)
-		len += ft_print_hex(n / 16, check_upper);
-	len += write(1, &base[n % 16], 1);
-	return (len);
+	total = 0;
+	if(nbr > (base - 1))
+	{
+		len = ft_print_base(nbr / base, base, str);
+		if (len == -1)
+			return (-1);
+		total += len;
+	}
+	index = nbr % base;
+	len = write(1, &str[index], 1);
+	total += len;
+	if (len == -1)
+		return (-1);
+	return(total);
 }
+
+int	ft_print_hex(unsigned long hex, int check_upper)
+{
+	if(check_upper)
+		return (ft_print_base(hex, 16, "0123456789ABCDEF"));
+	return (ft_print_base(hex, 16, "0123456789abcdef"));
+}
+
+int	ft_print_ptr(void *unbr)
+{
+	int len;
+
+	if(!unbr)
+		return (ft_print_str("(nil)"));
+	len = write(1, "0x", 2);
+	if (len == -1)
+		return (-1);
+	len += ft_print_hex(((unsigned long)unbr), 0);
+	return ((uintptr_t)len);
+}
+
+int	ft_print_unbr(unsigned int unbr)
+{
+	 return (ft_print_base(unbr, 10, "0123456789"));
+}
+
+// -TODO: Can I putnbr here?
+// int	ft_print_snbr(long int snbr)
+// {
+// 	 return (ft_print_base(snbr, 10, "0123456789"));
+// }

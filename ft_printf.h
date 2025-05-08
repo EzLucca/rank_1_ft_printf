@@ -27,39 +27,36 @@ int ft_printf(const char *format, ...);
  *
  * @param c: The character to output.
  *
- * @return: `size_t` Number of characters written.
+ * @return: `int` number of characters (bytes) written.
 */
 int	ft_print_char(char c);
 
 /*
- * @brief: This function writes the int `n` to the given file descriptor `fd`
+ * @brief: This function writes the int `n`.
  *
  * @param n: The character to output.
- * @param fd: The file descriptor to which the character is written.
  *
- * @return: `size_t` number of characters written.
+ * @return: `int` number of characters (bytes) written.
 */
 int	ft_print_snbr(int n);
 
 /*
- * @brief: Outputs a string to the file descriptor.
+ * @brief: Outputs a string of signed chars.
  *
- * @param s: The string to output.
- * @param fd: The file descriptor to which the character is written.
+ * @param n: The string to output.
  *
- * @return: `size_t` Number of characters that are written.
+ * @return: `int` number of characters (count) written.
 */
 int	ft_print_str(char *s);
 
 /*
  * @brief: Outputs the number of unsigned integer to the file descriptor.
  *
- * @param n: The unsigned integer to output.
- * @param fd: The file descriptor to which the character is written.
+ * @param s: The string to output.
  *
- * @return: `size_t` Number of characters written.
+ * @return: `int` Number of characters that are written.
 */
-int	ft_print_unbr(unsigned int n);
+int	ft_print_unbr(unsigned int unbr);
 
 
 /*
@@ -69,9 +66,9 @@ int	ft_print_unbr(unsigned int n);
  * @param fd: The file descriptor to which the character is written.
  * @param is_uppercase: Non zero value to quick check if it is uppercase. 
  *
- * @return: `size_t` Number of characters written.
+ * @return: `int` Number of characters that are written.
 */
-int	ft_print_hex(unsigned int n, short int is_uppercase);
+int	ft_print_hex(unsigned long hex, int check_upper);
 
 
 /*
@@ -84,8 +81,8 @@ int	ft_print_hex(unsigned int n, short int is_uppercase);
  * @param n: The unsigned long long integer to output.
  * @param fd: The file descriptor to which the character is written.
  *
- * @return: `size_t` Number of characters written.
+ * @return: `int` Number of characters that are written.
 */
-int	ft_print_ptr(unsigned long long n);
+int	ft_print_ptr(void *unbr);
 
 #endif
