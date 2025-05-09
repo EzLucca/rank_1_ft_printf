@@ -41,30 +41,31 @@ static int format_validation(const char *format)
 {
 	if (ft_strchr(SPECIFIERS, *format) != 0)
 		return (1);
-	return (ft_print_char('%'));
+	return (0);
 }
 
 int ft_printf(const char *format, ...)
 {
 	va_list arg_ptr;
 	int	len;
+	int	total;
 
-	va_start(arg_ptr, format);
+	len = 0;
+	total = 0;
 	if (!format)
 		return (-1);
-	len = 0;
+	va_start(arg_ptr, format);
 	while (*format)
 	{
 		if (*format == '%' && format_validation(format + 1) != 0 && format++)
-		{
-			len += format_specifier(format, &arg_ptr);
-			if(len == -1)
-				return (-1);
-		}
+			len = format_specifier(format, &arg_ptr);
 		else
-			len += write(1, format, 1);
+			len = write(1, format, 1);
+		if (len == -1)
+			return (-1);
+		total += len;
 		format++;
 	}
 	va_end(arg_ptr);
-	return(len);
+	return(total);
 }

@@ -48,14 +48,21 @@ int	ft_print_hex(unsigned long hex, int check_upper)
 int	ft_print_ptr(void *pointer)
 {
 	int len;
+	int total;
 
+	len = 0;
+	total = 0;
 	if(!pointer)
 		return (ft_print_str("(nil)"));
 	len = write(1, "0x", 2);
 	if (len == -1)
 		return (-1);
-	len += ft_print_hex(((unsigned long)pointer), 0);
-	return ((uintptr_t)len);
+	total += len;
+	len = ft_print_hex(((unsigned long)pointer), 0);
+	if (len == -1)
+		return (-1);
+	total += len;
+	return ((uintptr_t)total);
 }
 
 int	ft_print_unbr(unsigned int unbr)
@@ -65,22 +72,24 @@ int	ft_print_unbr(unsigned int unbr)
 
 int ft_print_snbr(long nbr)
 {
-	int count = 0;
-	int res;
+	int total;
+	int len;
 
+	total = 0;
+	len = 0;
 	if (nbr == -2147483648)
 		return (ft_print_str("-2147483648"));
 	if (nbr < 0)
 	{
-		res = write(1, "-", 1);
-		if (res == -1)
+		len = write(1, "-", 1);
+		if (len == -1)
 			return (-1);
-		count += res;
+		total += len;
 		nbr = -nbr;
 	}
-	res = ft_print_base((unsigned long)nbr, 10, DECIMAL);
-	if (res == -1)
+	len = ft_print_base((unsigned long)nbr, 10, DECIMAL);
+	if (len == -1)
 		return (-1);
-	count += res;
-	return (count);
+	total += len;
+	return (total);
 }
