@@ -22,6 +22,7 @@ static int ft_print_base(unsigned long nbr, unsigned int base, char *str)
 
 	len = 0;
 	total = 0;
+	index = nbr % base;
 	if(nbr > (base - 1))
 	{
 		len = ft_print_base(nbr / base, base, str);
@@ -29,11 +30,10 @@ static int ft_print_base(unsigned long nbr, unsigned int base, char *str)
 			return (-1);
 		total += len;
 	}
-	index = nbr % base;
 	len = write(1, &str[index], 1);
-	total += len;
 	if (len == -1)
 		return (-1);
+	total += len;
 	return(total);
 }
 
@@ -44,16 +44,17 @@ int	ft_print_hex(unsigned long hex, int check_upper)
 	return (ft_print_base(hex, 16, HEXDN));
 }
 
-int	ft_print_ptr(void *unbr)
+//-TODO: check the types of return and correct it
+int	ft_print_ptr(void *pointer)
 {
 	int len;
 
-	if(!unbr)
+	if(!pointer)
 		return (ft_print_str("(nil)"));
 	len = write(1, "0x", 2);
 	if (len == -1)
 		return (-1);
-	len += ft_print_hex(((unsigned long)unbr), 0);
+	len += ft_print_hex(((unsigned long)pointer), 0);
 	return ((uintptr_t)len);
 }
 

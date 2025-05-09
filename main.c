@@ -81,8 +81,8 @@ void test_ft_printf(void)
 
 	// 13. Different specifier
 	printf(">>>>>>> Test specifier h <<<<<<<\n");
-	ret_printf = printf("Official printf: %h to be tested\n", "combo");
-	ret_ft_printf  = ft_printf("Minha ft_printf: %h to be tested\n", "combo");
+	ret_printf = printf("Official printf: %h to %w be tested %y\n", "combo", "combo", "combo");
+	ret_ft_printf  = ft_printf("Minha ft_printf: %h to %w be tested %y\n", "combo", "combo", "combo");
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 }
 

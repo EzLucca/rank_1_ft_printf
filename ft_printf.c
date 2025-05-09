@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// -TODO: Revisar
 #include "ft_printf.h"
 
 int	format_specifier(const char *format, va_list *arg_ptr)
@@ -29,7 +28,7 @@ int	format_specifier(const char *format, va_list *arg_ptr)
 	else if (*format == 'u')
 		count += ft_print_unbr(va_arg(*arg_ptr, unsigned int));
 	else if (*format == 'x' || *format == 'X')
-		count += ft_print_hex(va_arg(*arg_ptr, unsigned long int), *format == 'X');
+		count += ft_print_hex(va_arg(*arg_ptr, unsigned int), *format == 'X');
 	else if (*format == '%')
 		count += ft_print_char('%');
 	if (*format == '\0')
@@ -42,7 +41,7 @@ static int format_validation(const char *format)
 {
 	if (ft_strchr(SPECIFIERS, *format) != 0)
 		return (1);
-	return (0);
+	return (ft_print_char('%'));
 }
 
 int ft_printf(const char *format, ...)

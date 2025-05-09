@@ -7,9 +7,10 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = ft_printf.c ft_printf_chars.c ft_printf_hex.c 
 
+MEMORY = -g -fsanitize=address,undefined
+
 C_OBJECTS = $(SRCS:.c=.o)
 .SECONDARY: ${C_OBJECTS}
-
 
 BONUS_OBJECTS = $(BONUSFILES:.c=.o)
 
@@ -31,9 +32,9 @@ fclean: clean
 re: fclean all
 
 test: 
-	@cc $(SRCS) main.c -o output.out
-	@./output.out
-	@rm -f output.out
+	@cc $(MEMORY) $(SRCS) main.c -o output
+	@./output
+	@rm -f output
 
 bonus: .bonus
 

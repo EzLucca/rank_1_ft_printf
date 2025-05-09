@@ -17,16 +17,26 @@
 # include <stdarg.h>
 # include <stdint.h>
 
+//-------------Define Macros-------------//
+
 # define SPECIFIERS "cspdiuxX%"
 # define HEXUP "0123456789ABCDEF"
 # define HEXDN "0123456789abcdef"
 # define DECIMAL "0123456789"
+
 // -TODO:Revisar comentarios
+
+/*
+ * @brief: This function writes out the output according to a specific format. 
+ *
+ * @param format: The character to output.
+ *
+ * @return: `int` number of characters (bytes) written.
+*/
 int ft_printf(const char *format, ...);
 
 /*
- * @brief: This function writes the character `c` to the given file 
- * descriptor `fd`.
+ * @brief: This function writes the character `c` as a char format.
  *
  * @param c: The character to output.
  *
@@ -37,57 +47,52 @@ int	ft_print_char(char c);
 /*
  * @brief: This function writes the int `n`.
  *
- * @param n: The character to output.
+ * @param nbr: The character to output.
  *
  * @return: `int` number of characters (bytes) written.
 */
-// int	ft_print_snbr(int n);
 int ft_print_snbr(long nbr);
 
 /*
  * @brief: Outputs a string of signed chars.
  *
- * @param n: The string to output.
+ * @param s: The string to output.
  *
  * @return: `int` number of characters (count) written.
 */
 int	ft_print_str(char *s);
 
 /*
- * @brief: Outputs the number of unsigned integer to the file descriptor.
+ * @brief: Outputs the number of unsigned integer.
  *
- * @param s: The string to output.
+ * @param unbr: The string to output.
  *
  * @return: `int` Number of characters that are written.
 */
 int	ft_print_unbr(unsigned int unbr);
 
-
 /*
- * @brief: Outputs an unsigned integer as hexadecimal to the file descriptor.
+ * @brief: Outputs an unsigned integer as hexadecimal.
  *
  * @param n: The unsigned integer to output.
- * @param fd: The file descriptor to which the character is written.
- * @param is_uppercase: Non zero value to quick check if it is uppercase. 
+ *
+ * @param hex: The hexadecimal number to be outputed. 
+ * @param check_upper: Non zero value to quick check if it is uppercase. 
  *
  * @return: `int` Number of characters that are written.
 */
 int	ft_print_hex(unsigned long hex, int check_upper);
 
-
 /*
- * @brief: Outputs the memory address in a hexadecimal format to the file
- * descriptor.
+ * @brief: Outputs the memory address in a hexadecimal format.
  *
- * It is used long long to ensure that the would be enough to hold a value
- * of a pointer in 64-bits systems. 
+ * It is used void pointer to ensure 
  *
- * @param n: The unsigned long long integer to output.
- * @param fd: The file descriptor to which the character is written.
+ * @param unbr: The unsigned  integer to output.
  *
  * @return: `int` Number of characters that are written.
 */
-int	ft_print_ptr(void *unbr);
+int	ft_print_ptr(void *pointer);
 
 char	*ft_strchr(const char *s, int c);
 #endif
