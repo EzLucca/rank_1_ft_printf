@@ -12,8 +12,6 @@
 
 #include "ft_printf.h"
 
-// -TODO: Revisar
-
 // Helper function to count len of string
 static size_t	ft_strlen(const char *s)
 {
@@ -27,7 +25,7 @@ static size_t	ft_strlen(const char *s)
 
 int	ft_print_char(char c)
 {
-	int bytes;
+	int	bytes;
 
 	bytes = write(1, &c, 1);
 	if (bytes == -1)
@@ -37,7 +35,7 @@ int	ft_print_char(char c)
 
 int	ft_print_str(char *s)
 {
-	int bytes;
+	int	bytes;
 
 	bytes = 0;
 	if (!s)
@@ -48,7 +46,6 @@ int	ft_print_str(char *s)
 	return (bytes);
 }
 
-// Helper function to validation 
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;

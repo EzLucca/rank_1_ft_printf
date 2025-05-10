@@ -6,6 +6,12 @@ void test_ft_printf(void)
 {
 	int ret_printf, ret_ft_printf;
 
+	// 0. NULL 
+	printf(">>>>>>> Test NULL<<<<<<<\n");
+	ret_printf = printf(NULL);
+	ret_ft_printf  = ft_printf(NULL);
+	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
+
 	// 1. Simple strings
 	printf(">>>>>>> Test literal string <<<<<<<\n");
 	ret_printf = printf("Official printf: Hello, world!\n");
@@ -23,18 +29,18 @@ void test_ft_printf(void)
 	ret_printf = printf("Official printf: str = %s\n", "test");
 	ret_ft_printf  = ft_printf("Minha ft_printf: str = %s\n", "test");
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
-	
+
 	// 4. Pointers
 	int x = 42;
 	printf(">>>>>>> Test p <<<<<<<\n");
 	ret_printf = printf("Official printf: ptr = %p\n", &x);
 	ret_ft_printf  = ft_printf("Minha ft_printf: ptr = %p\n", &x);
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
-	
-	// 5. Integers (signed)
-	printf(">>>>>>> Test d and i <<<<<<<\n");
-	ret_printf = printf("Official printf: int = %d, %i\n", -123, 456);
-	ret_ft_printf  = ft_printf("Minha ft_printf: int = %d, %i\n", -123, 456);
+
+	// 5. Percent symbol
+	printf(">>>>>>> Test %% <<<<<<<\n");
+	ret_printf = printf("Official printf: %%\n");
+	ret_ft_printf  = ft_printf("Minha ft_printf: %%\n");
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 
 	// 6. Unsigned integers
@@ -55,10 +61,10 @@ void test_ft_printf(void)
 	ret_ft_printf  = ft_printf("Minha ft_printf: HEX = %X\n", 3735928559u);
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 
-	// 9. Percent symbol
-	printf(">>>>>>> Test %% <<<<<<<\n");
-	ret_printf = printf("Official printf: %%\n");
-	ret_ft_printf  = ft_printf("Minha ft_printf: %%\n");
+	// 9. Integers (signed)
+	printf(">>>>>>> Test d and i <<<<<<<\n");
+	ret_printf = printf("Official printf: int = %d, %i\n", -123, -456);
+	ret_ft_printf  = ft_printf("Minha ft_printf: int = %d, %i\n", -123, -456);
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 
 	// 10. Edge cases: zero, INT_MIN, INT_MAX
@@ -67,25 +73,37 @@ void test_ft_printf(void)
 	ret_ft_printf  = ft_printf("Minha ft_printf: edge = %d, %d\n", INT_MIN, INT_MAX);
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 
-	// 11. Null string
+	// 11. Edge cases: zero, LONG_MIN, LONG_MAX
+	printf(">>>>>>> Test zero, LONG_MIN, LONG_MAX <<<<<<<\n");
+	ret_printf = printf("Official printf: edge = %d, %d\n", LONG_MIN, LONG_MAX);
+	ret_ft_printf  = ft_printf("Minha ft_printf: edge = %d, %d\n", LONG_MIN, LONG_MAX);
+	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
+
+	// 12. Edge cases: zero, LLONG_MIN, LLONG_MAX
+	printf(">>>>>>> Test zero, LLONG_MIN, LLONG_MAX <<<<<<<\n");
+	ret_printf = printf("Official printf: edge = %d, %d\n", LLONG_MIN, LLONG_MAX);
+	ret_ft_printf  = ft_printf("Minha ft_printf: edge = %d, %d\n", LLONG_MIN, LLONG_MAX);
+	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
+
+	// 13. Null string
 	printf(">>>>>>> Test null string <<<<<<<\n");
 	ret_printf = printf("Official printf: null = %s\n", (char *)NULL);
 	ret_ft_printf  = ft_printf("Minha ft_printf: null = %s\n", (char *)NULL);
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 
-	// 12. Complex combination
+	// 14. Complex combination
 	printf(">>>>>>> Test combination <<<<<<<\n");
-	ret_printf = printf("Official printf: %d %u %x %X %c %s %%\n", -42, 42, 42, 42, 'Z', "combo");
-	ret_ft_printf  = ft_printf("Minha ft_printf: %d %u %x %X %c %s %%\n", -42, 42, 42, 42, 'Z', "combo");
+	ret_printf = printf("Official printf: %p %i %d %u %x %X %c %s %%\n", &x, -420, -42, 42, 42, 42, 'Z', "combo");
+	ret_ft_printf  = ft_printf("Minha ft_printf: %p %i %d %u %x %X %c %s %%\n", &x, -420,-42, 42, 42, 42, 'Z', "combo");
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 
-	// 13. Different specifier
+	// 15. Different specifier
 	printf(">>>>>>> Test specifier h <<<<<<<\n");
 	ret_printf = printf("Official printf: %h\n", "combo");
 	ret_ft_printf  = ft_printf("Minha ft_printf: %h\n", "combo");
 	printf("Return: printf=%d, ft_printf=%d\n\n", ret_printf, ret_ft_printf);
 
-	// 14. One % 
+	// 16. One % 
 	printf(">>>>>>> Test specifier one %<<<<<<<\n");
 	ret_printf = printf("Official printf: %\n");
 	ret_ft_printf  = ft_printf("Minha ft_printf: %\n");

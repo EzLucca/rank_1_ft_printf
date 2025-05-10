@@ -12,8 +12,6 @@ MEMORY = -g -fsanitize=address,undefined
 C_OBJECTS = $(SRCS:.c=.o)
 .SECONDARY: ${C_OBJECTS}
 
-BONUS_OBJECTS = $(BONUSFILES:.c=.o)
-
 all: $(NAME)
 
 $(NAME): $(C_OBJECTS)
@@ -23,7 +21,7 @@ $(NAME): $(C_OBJECTS)
 	$(COMPILER) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(C_OBJECTS) $(BONUS_OBJECTS)
+	@rm -f $(C_OBJECTS)
 
 fclean: clean
 	@rm -f $(NAME)
@@ -31,15 +29,16 @@ fclean: clean
 
 re: fclean all
 
+# Used for testing
 test: 
-	@cc $(MEMORY) $(SRCS) main.c -o output
+	@cc $(SRCS) main.c -o output
 	@./output
 	@rm -f output
 
-bonus: .bonus
-
-.bonus: $(NAME) $(BONUS_OBJECTS) $(INCLUDE)
-	@ar rcs $(NAME) $(BONUS_OBJECTS)
-	@touch .bonus
+# Used for memory testing
+memorytest: 
+	@cc $(MEMORY) $(SRCS) main.c -o output
+	@./output
+	@rm -f output
 
 .PHONY: all clean fclean re bonus

@@ -1,4 +1,4 @@
-TIMEOUT_US 		= 400000 #if you timeout you can try to increase this value
+TIMEOUT_US 		= 100000 #if you timeout you can try to increase this value
 
 .DEFAULT_GOAL	:= m
 SHELL			= bash
@@ -39,7 +39,7 @@ bonus_start: update checkmakefile
 	@tput setaf 5 && echo [Bonus]
 
 update:
-	@git pull
+	# @git pull
 
 checkmakefile:
 	@ls .. | grep Makefile > /dev/null 2>&1 || (tput setaf 1 && echo Makefile not found. && exit 1)
