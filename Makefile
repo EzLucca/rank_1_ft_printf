@@ -15,7 +15,7 @@ C_OBJECTS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(C_OBJECTS)
-	@ar rcs $@ $^
+	ar rcs $@ $^
 
 %.o: %.c
 	$(COMPILER) $(CFLAGS) -c $< -o $@

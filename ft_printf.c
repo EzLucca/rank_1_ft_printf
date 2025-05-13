@@ -31,8 +31,6 @@ static int	format_specifier(const char *format, va_list *arg_ptr)
 		count += ft_print_hex (va_arg(*arg_ptr, unsigned int), *format == 'X');
 	else if (*format == '%')
 		count += ft_print_char ('%');
-	if (*format == '\0')
-		return (-1);
 	return (count);
 }
 
@@ -62,7 +60,10 @@ int	ft_printf(const char *format, ...)
 		else
 			len = write(1, format, 1);
 		if (len == -1)
+		{
+			va_end(arg_ptr);
 			return (-1);
+		}
 		total += len;
 		format++;
 	}
