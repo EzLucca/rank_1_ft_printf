@@ -24,6 +24,8 @@ static int	ft_print_base(unsigned long nbr, unsigned int base, const char *str)
 	if (nbr > (base - 1))
 	{
 		len = ft_print_base(nbr / base, base, str);
+		if (len == -1)
+			return (-1);
 		total += len;
 	}
 	len = write(1, &str[index], 1);

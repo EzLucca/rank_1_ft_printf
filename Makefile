@@ -25,7 +25,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f .bonus
 
 re: fclean all
 
@@ -41,4 +40,4 @@ memorytest:
 	@./output
 	@rm -f output
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus test memorytest
